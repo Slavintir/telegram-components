@@ -6,6 +6,7 @@ import telegramService from '../telegram.service';
 import { UnexpectedError } from '../errors';
 
 import { FoolishComponent, ComponentState } from '../interfaces/component';
+import { VoidCommand } from 'src/commands/void';
 
 export interface ButtonState extends ComponentState {
     text: string;
@@ -34,7 +35,7 @@ export class ButtonComponent extends FoolishComponent<ButtonState> {
 
     async setState(state: StateArguments): Promise<this> {
         const componentId = uuid();
-        this.state = { ...state, componentId, commandName: 'Void' };
+        this.state = { ...state, componentId, commandName: VoidCommand.name };
         await telegramService.stateStorage.save(componentId, this.name, this.state);
 
         return this;

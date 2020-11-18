@@ -8,6 +8,7 @@ const uuid_1 = require("uuid");
 const telegram_service_1 = __importDefault(require("../telegram.service"));
 const errors_1 = require("../errors");
 const component_1 = require("../interfaces/component");
+const void_1 = require("src/commands/void");
 class ButtonComponent extends component_1.FoolishComponent {
     get commandName() {
         return this.state.commandName;
@@ -22,7 +23,7 @@ class ButtonComponent extends component_1.FoolishComponent {
     }
     async setState(state) {
         const componentId = uuid_1.v4();
-        this.state = Object.assign(Object.assign({}, state), { componentId, commandName: 'Void' });
+        this.state = Object.assign(Object.assign({}, state), { componentId, commandName: void_1.VoidCommand.name });
         await telegram_service_1.default.stateStorage.save(componentId, this.name, this.state);
         return this;
     }
