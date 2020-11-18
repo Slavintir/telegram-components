@@ -5,8 +5,9 @@ import telegramService from '../telegram.service';
 
 import { UnexpectedError } from '../errors';
 
+import { VoidCommand } from '../commands/void';
+
 import { FoolishComponent, ComponentState } from '../interfaces/component';
-import { VoidCommand } from 'src/commands/void';
 
 export interface ButtonState extends ComponentState {
     text: string;

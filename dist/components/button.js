@@ -7,8 +7,8 @@ exports.ButtonComponent = void 0;
 const uuid_1 = require("uuid");
 const telegram_service_1 = __importDefault(require("../telegram.service"));
 const errors_1 = require("../errors");
+const void_1 = require("../commands/void");
 const component_1 = require("../interfaces/component");
-const void_1 = require("src/commands/void");
 class ButtonComponent extends component_1.FoolishComponent {
     get commandName() {
         return this.state.commandName;
