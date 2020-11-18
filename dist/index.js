@@ -1,21 +1,29 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const path_1 = require("path");
-const telegram_service_1 = __importDefault(require("./telegram.service"));
-const storage_1 = require("./storage");
-async function main() {
-    const storage = await storage_1.Storage.connect({
-        host: 'us1-content-kodiak-30614.lambda.store',
-        port: 30614,
-        password: '53d67785ea004aac8dafc2922a1c349c',
-    });
-    telegram_service_1.default.connect('862445875:AAH9A3erTB7V68rDM1iYC__pI77izofjMoY', storage, {
-        telegramCommandListenersDir: path_1.resolve('dist/telegramCommandListeners'),
-        telegramEventListenersDir: path_1.resolve('dist/telegramEventListeners'),
-    });
-}
-main();
+exports.telegram = exports.RedisStorage = void 0;
+__exportStar(require("./components"), exports);
+__exportStar(require("./factories"), exports);
+__exportStar(require("./interfaces/command"), exports);
+__exportStar(require("./interfaces/component"), exports);
+__exportStar(require("./interfaces/factory"), exports);
+__exportStar(require("./interfaces/storage"), exports);
+__exportStar(require("./interfaces/telegram"), exports);
+__exportStar(require("./interfaces/telegramListener"), exports);
+var redisStorage_1 = require("./redisStorage");
+Object.defineProperty(exports, "RedisStorage", { enumerable: true, get: function () { return redisStorage_1.RedisStorage; } });
+var telegram_service_1 = require("./telegram.service");
+Object.defineProperty(exports, "telegram", { enumerable: true, get: function () { return __importDefault(telegram_service_1).default; } });
 //# sourceMappingURL=index.js.map

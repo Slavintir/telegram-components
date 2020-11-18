@@ -6,12 +6,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Storage = void 0;
+exports.RedisStorage = void 0;
 const redis_1 = require("redis");
 const util_1 = require("util");
 const stateStorage_1 = require("./errors/stateStorage");
-const decorators_1 = require("./decorators");
-class Storage {
+const decorators_1 = require("./helpers/decorators");
+class RedisStorage {
     constructor(connection) {
         connection.on('connect', () => {
             console.info('Successfully connected to redis');
@@ -25,7 +25,7 @@ class Storage {
         this.connection = connection;
     }
     static async connect(options) {
-        const storage = new Storage(redis_1.createClient(options));
+        const storage = new RedisStorage(redis_1.createClient(options));
         return new Promise((resolve, reject) => {
             storage.connection.on('connect', () => resolve(storage));
             storage.connection.on('error', err => reject(err));
@@ -51,6 +51,6 @@ class Storage {
 }
 __decorate([
     decorators_1.Required
-], Storage.prototype, "connection", void 0);
-exports.Storage = Storage;
-//# sourceMappingURL=storage.js.map
+], RedisStorage.prototype, "connection", void 0);
+exports.RedisStorage = RedisStorage;
+//# sourceMappingURL=redisStorage.js.map

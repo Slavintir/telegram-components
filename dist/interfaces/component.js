@@ -6,13 +6,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FoolishComponent = exports.SmartComponent = exports.Component = exports.ComponentName = void 0;
-const decorators_1 = require("../decorators");
-var ComponentName;
-(function (ComponentName) {
-    ComponentName["Button"] = "Button";
-    ComponentName["Keyboard"] = "Keyboard";
-})(ComponentName = exports.ComponentName || (exports.ComponentName = {}));
+exports.FoolishComponent = exports.SmartComponent = exports.Component = void 0;
+const decorators_1 = require("../helpers/decorators");
 class Component {
     get componentId() {
         return this.state.componentId;

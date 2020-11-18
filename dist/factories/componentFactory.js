@@ -5,25 +5,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BaseComponentFactory = void 0;
 const telegram_service_1 = __importDefault(require("../telegram.service"));
-const _1 = require(".");
-const errors_1 = require("../errors");
 const keyboard_1 = require("../components/keyboard");
 const button_1 = require("../components/button");
-const component_1 = require("../interfaces/component");
-class BaseComponentFactory extends _1.AbstractFactory {
-    constructor() {
-        super(...arguments);
+const factory_1 = require("../interfaces/factory");
+class BaseComponentFactory extends factory_1.AbstractFactory {
+    constructor(types = {}) {
+        super();
         this.types = {
-            [component_1.ComponentName.Button]: button_1.ButtonComponent,
-            [component_1.ComponentName.Keyboard]: keyboard_1.KeyboardComponent,
+            [button_1.ButtonComponent.name]: button_1.ButtonComponent,
+            [keyboard_1.KeyboardComponent.name]: keyboard_1.KeyboardComponent,
         };
+        this.types = Object.assign(Object.assign({}, this.types), types);
     }
     async factory(componentId) {
         const [componentName, state] = await telegram_service_1.default.stateStorage.restore(componentId);
         if (Object.prototype.hasOwnProperty.call(this.types, componentName)) {
             return new this.types[componentName]().restore(state);
         }
-        throw new errors_1.UnexpectedError('Commands factory can not create object. Command not implemented', { componentName });
+        return null;
     }
 }
 exports.BaseComponentFactory = BaseComponentFactory;

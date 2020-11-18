@@ -12,7 +12,7 @@ const component_1 = require("../interfaces/component");
 class KeyboardComponent extends component_1.SmartComponent {
     constructor() {
         super(...arguments);
-        this.name = component_1.ComponentName.Keyboard;
+        this.name = 'Keyboard';
     }
     static async create(state) {
         const { chatId } = state;

@@ -5,7 +5,8 @@
   "types": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "watch": "rm -rf ./dist; ./node_modules/typescript/bin/tsc --project tsconfig.json --watch"
+    "watch": "rm -rf ./dist && ./node_modules/.bin/tsc --project tsconfig.json --watch",
+    "build": "rm -rf ./dist && ./node_modules/.bin/tsc --project tsconfig.json"
   },
   "devDependencies": {
     "@types/node": "^14.11.8",

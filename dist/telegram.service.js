@@ -10,7 +10,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const node_telegram_bot_api_1 = __importDefault(require("node-telegram-bot-api"));
-const decorators_1 = require("./decorators");
+const decorators_1 = require("./helpers/decorators");
 const commandFactory_1 = require("./factories/commandFactory");
 const componentFactory_1 = require("./factories/componentFactory");
 const directory_1 = require("./helpers/directory");
