@@ -1,17 +1,19 @@
-import { AbstractFactory } from '.';
-
-import { StartCommand } from '../commands/start';
+import { Command } from '../interfaces/command';
 import { VoidCommand } from '../commands/void';
 
-import { CommandName } from '../interfaces/command';
+import { AbstractFactory, FactoryTypes } from '../interfaces/factory';
 
 export class BaseCommandFactory extends AbstractFactory {
-    protected types = {
-        [CommandName.Start]: StartCommand,
-        [CommandName.Void]: VoidCommand,
+    protected types: FactoryTypes = {
+        [VoidCommand.name]: VoidCommand,
     };
 
-    factory(commandName: CommandName) {
+    constructor(types: FactoryTypes = { }) {
+        super();
+        this.types = { ...this.types, ...types };
+    }
+
+    factory<T extends Command>(commandName: string): T | null {
         if (Object.prototype.hasOwnProperty.call(this.types, commandName)) {
             return new this.types[commandName]();
         }

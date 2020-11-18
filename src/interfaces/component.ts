@@ -1,15 +1,10 @@
 import { InlineKeyboardButton } from 'node-telegram-bot-api';
-import { Required } from '../decorators';
+import { Required } from '../helpers/decorators';
 
 export interface ComponentState {
     componentId: string;
     chatId: number;
     messageId?: number;
-}
-
-export enum ComponentName {
-    Button = 'Button',
-    Keyboard = 'Keyboard'
 }
 
 export abstract class Component<T extends ComponentState> {

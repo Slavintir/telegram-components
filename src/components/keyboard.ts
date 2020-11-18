@@ -7,7 +7,7 @@ import { UnexpectedError } from '../errors';
 
 import { ButtonComponent } from './button';
 
-import { SmartComponent, ComponentName, ComponentState } from '../interfaces/component';
+import { SmartComponent, ComponentState } from '../interfaces/component';
 
 export interface KeyboardState extends ComponentState {
     description: string;
@@ -20,7 +20,7 @@ export interface ButtonData {
 }
 
 export class KeyboardComponent extends SmartComponent<KeyboardState> {
-    readonly name = ComponentName.Keyboard;
+    readonly name = 'Keyboard';
 
     static async create(state: Omit<KeyboardState, 'componentId' | 'buttons'> & { buttons: ButtonData[][] }): Promise<KeyboardComponent> {
         const { chatId } = state;

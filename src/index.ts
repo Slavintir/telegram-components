@@ -1,20 +1,13 @@
-import { resolve } from 'path';
+export * from './components';
+export * from './factories';
 
-import telegramService from './telegram.service';
+export * from './interfaces/command';
+export * from './interfaces/component';
+export * from './interfaces/factory';
+export * from './interfaces/storage';
+export * from './interfaces/telegram';
+export * from './interfaces/telegramListener';
 
-import { Storage } from './storage';
+export { RedisStorage } from './redisStorage';
 
-async function main() {
-    const storage = await Storage.connect({
-        host: 'us1-content-kodiak-30614.lambda.store',
-        port: 30614,
-        password: '53d67785ea004aac8dafc2922a1c349c',
-    });
-
-    telegramService.connect('862445875:AAH9A3erTB7V68rDM1iYC__pI77izofjMoY', storage, {
-        telegramCommandListenersDir: resolve('dist/telegramCommandListeners'),
-        telegramEventListenersDir: resolve('dist/telegramEventListeners'),
-    });
-}
-
-main();
+export { default as telegram } from './telegram.service';

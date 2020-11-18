@@ -3,12 +3,12 @@ import { promisify } from 'util';
 
 import { StateNotFound } from './errors/stateStorage';
 
-import { Required } from './decorators';
+import { Required } from './helpers/decorators';
 
 import { ComponentState } from './interfaces/component';
 import { StateStorage } from './interfaces/storage';
 
-export class Storage implements StateStorage {
+export class RedisStorage implements StateStorage {
     @Required connection!: RedisClient
 
     constructor(connection: RedisClient) {
@@ -27,8 +27,8 @@ export class Storage implements StateStorage {
         this.connection = connection;
     }
 
-    static async connect(options?: ClientOpts): Promise<Storage> {
-        const storage = new Storage(createClient(options));
+    static async connect(options?: ClientOpts): Promise<RedisStorage> {
+        const storage = new RedisStorage(createClient(options));
 
         return new Promise((resolve, reject) => {
             storage.connection.on('connect', () => resolve(storage));

@@ -5,21 +5,20 @@ import telegramService from '../telegram.service';
 
 import { UnexpectedError } from '../errors';
 
-import { CommandName } from '../interfaces/command';
-import { FoolishComponent, ComponentName, ComponentState } from '../interfaces/component';
+import { FoolishComponent, ComponentState } from '../interfaces/component';
 
 export interface ButtonState extends ComponentState {
     text: string;
-    commandName: CommandName;
+    commandName: string;
     parentComponentId: string;
 }
 
-type StateArguments = Omit<ButtonState, 'componentId' | 'commandName'> & { commandName?: CommandName | string };
+type StateArguments = Omit<ButtonState, 'componentId' | 'commandName'> & { commandName?: string };
 
 export class ButtonComponent extends FoolishComponent<ButtonState> {
-    readonly name = ComponentName.Button;
+    readonly name = 'Button';
 
-    get commandName(): CommandName {
+    get commandName(): string {
         return this.state.commandName;
     }
 
@@ -37,7 +36,7 @@ export class ButtonComponent extends FoolishComponent<ButtonState> {
 
     async setState(state: StateArguments): Promise<this> {
         const componentId = uuid();
-        this.state = { ...state, componentId, commandName: CommandName.Void };
+        this.state = { ...state, componentId, commandName: 'Void' };
         await telegramService.stateStorage.save(componentId, this.name, this.state);
 
         return this;

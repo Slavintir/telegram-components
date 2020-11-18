@@ -1,6 +1,6 @@
 import TelegramBot, { SendMessageOptions, Message, InlineKeyboardMarkup } from 'node-telegram-bot-api';
 
-import { Required } from './decorators';
+import { Required } from './helpers/decorators';
 
 import { BaseCommandFactory } from './factories/commandFactory';
 import { BaseComponentFactory } from './factories/componentFactory';
