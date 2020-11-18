@@ -5,6 +5,6 @@ import { ButtonComponent } from '../components/button';
 export type CommandEndCallback = (text: string) => Promise<boolean>;
 
 export abstract class Command {
-    readonly name = Command.constructor.name;
+    readonly name = this.constructor.name;
     abstract execute(query: CallbackQuery, end: CommandEndCallback, button: ButtonComponent): any;
 }

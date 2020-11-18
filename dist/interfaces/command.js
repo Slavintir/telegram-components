@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Command = void 0;
 class Command {
     constructor() {
-        this.name = Command.constructor.name;
+        this.name = this.constructor.name;
     }
 }
 exports.Command = Command;

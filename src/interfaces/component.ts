@@ -9,7 +9,7 @@ export interface ComponentState {
 }
 
 export abstract class Component<T extends ComponentState> {
-    readonly name = Component.constructor.name;
+    readonly name = this.constructor.name;
 
     @Required state!: T;
 
