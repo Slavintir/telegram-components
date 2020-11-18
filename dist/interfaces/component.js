@@ -9,6 +9,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FoolishComponent = exports.SmartComponent = exports.Component = void 0;
 const decorators_1 = require("../helpers/decorators");
 class Component {
+    constructor() {
+        this.name = Component.constructor.name;
+    }
     get componentId() {
         return this.state.componentId;
     }

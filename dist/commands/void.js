@@ -1,10 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.VoidCommand = void 0;
-class VoidCommand {
-    constructor() {
-        this.name = 'Void';
-    }
+const command_1 = require("../interfaces/command");
+class VoidCommand extends command_1.Command {
     async execute(query, end, button) {
         return end('ok');
     }

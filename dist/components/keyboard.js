@@ -10,10 +10,6 @@ const errors_1 = require("../errors");
 const button_1 = require("./button");
 const component_1 = require("../interfaces/component");
 class KeyboardComponent extends component_1.SmartComponent {
-    constructor() {
-        super(...arguments);
-        this.name = 'Keyboard';
-    }
     static async create(state) {
         const { chatId } = state;
         const keyboard = await new KeyboardComponent().setState(Object.assign(Object.assign({}, state), { buttons: [] }));

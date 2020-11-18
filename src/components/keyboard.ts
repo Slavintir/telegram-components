@@ -20,8 +20,6 @@ export interface ButtonData {
 }
 
 export class KeyboardComponent extends SmartComponent<KeyboardState> {
-    readonly name = 'Keyboard';
-
     static async create(state: Omit<KeyboardState, 'componentId' | 'buttons'> & { buttons: ButtonData[][] }): Promise<KeyboardComponent> {
         const { chatId } = state;
 

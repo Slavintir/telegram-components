@@ -1,3 +1,4 @@
+import { prototype } from 'module';
 import { InlineKeyboardButton } from 'node-telegram-bot-api';
 import { Required } from '../helpers/decorators';
 
@@ -8,7 +9,7 @@ export interface ComponentState {
 }
 
 export abstract class Component<T extends ComponentState> {
-    abstract readonly name: string;
+    readonly name = Component.constructor.name;
 
     @Required state!: T;
 

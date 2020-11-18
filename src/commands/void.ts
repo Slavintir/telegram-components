@@ -4,8 +4,7 @@ import { ButtonComponent } from '../components/button';
 
 import { Command, CommandEndCallback } from '../interfaces/command';
 
-export class VoidCommand implements Command {
-    readonly name = 'Void';
+export class VoidCommand extends Command {
     async execute(query: CallbackQuery, end: CommandEndCallback, button: ButtonComponent): Promise<boolean> {
         return end('ok');
     }

@@ -9,10 +9,6 @@ const telegram_service_1 = __importDefault(require("../telegram.service"));
 const errors_1 = require("../errors");
 const component_1 = require("../interfaces/component");
 class ButtonComponent extends component_1.FoolishComponent {
-    constructor() {
-        super(...arguments);
-        this.name = 'Button';
-    }
     get commandName() {
         return this.state.commandName;
     }

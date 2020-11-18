@@ -16,8 +16,6 @@ export interface ButtonState extends ComponentState {
 type StateArguments = Omit<ButtonState, 'componentId' | 'commandName'> & { commandName?: string };
 
 export class ButtonComponent extends FoolishComponent<ButtonState> {
-    readonly name = 'Button';
-
     get commandName(): string {
         return this.state.commandName;
     }
