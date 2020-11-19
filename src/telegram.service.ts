@@ -67,7 +67,7 @@ class TelegramService {
     private async initTelegramEventListeners(dir: string): Promise<void> {
         const paths = await DirectoryHelper.recursiveReadDir(dir, ['.js']);
         paths.map(path => require(path).default as TelegramEventListener)
-            .forEach(({ eventName, handler }) => this.bot.on(eventName as any, async (ctx) => {
+            .forEach(({ eventName, handler }) => this.bot.on(eventName, async (ctx) => {
                 await handler(ctx);
             }));
     }
