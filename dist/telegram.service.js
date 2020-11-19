@@ -26,7 +26,9 @@ class TelegramService {
         if (options === null || options === void 0 ? void 0 : options.telegramEventListenersDir) {
             await this.initTelegramEventListeners(options === null || options === void 0 ? void 0 : options.telegramEventListenersDir);
         }
-        console.info('Successfully connected to telegram');
+        this.bot.start(() => {
+            console.info('Successfully connected to telegram');
+        });
     }
     async sendMessage(chatId, text, buttons) {
         if (!buttons) {

@@ -13,7 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.telegram = exports.RedisStorage = void 0;
+exports.telegram = exports.RedisStorage = exports.Context = void 0;
+var telegraf_1 = require("telegraf");
+Object.defineProperty(exports, "Context", { enumerable: true, get: function () { return telegraf_1.Context; } });
+__exportStar(require("telegraf/typings/telegram-types"), exports);
 __exportStar(require("./components"), exports);
 __exportStar(require("./factories"), exports);
 __exportStar(require("./interfaces/command"), exports);
