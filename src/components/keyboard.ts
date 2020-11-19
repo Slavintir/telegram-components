@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { InlineKeyboardButton, Message } from 'node-telegram-bot-api';
+import { InlineKeyboardButton, Message } from 'telegraf/typings/telegram-types';
 
 import telegramService from '../telegram.service';
 
@@ -42,11 +42,7 @@ export class KeyboardComponent extends SmartComponent<KeyboardState> {
     async send(): Promise<Message> {
         const { chatId } = this.state;
 
-        const sentMessage = await telegramService.sendMessage(chatId, this.state.description, {
-            reply_markup: {
-                inline_keyboard: this.toInlineKeyboardButton(),
-            },
-        });
+        const sentMessage = await telegramService.sendMessage(chatId, this.state.description, this.toInlineKeyboardButton());
 
         const messageId = sentMessage.message_id;
         await Promise.all(this.state.buttons.map(v => v.map(v => v.updateState({ ...v.state, messageId }))));
@@ -64,9 +60,7 @@ export class KeyboardComponent extends SmartComponent<KeyboardState> {
 
         await this.restoreState(this.componentId);
 
-        return telegramService.updateInlineKeyboard(chatId, messageId, {
-            inline_keyboard: this.toInlineKeyboardButton(),
-        });
+        return telegramService.updateInlineKeyboard(chatId, messageId, this.toInlineKeyboardButton());
     }
 
     async delete(): Promise<void> { }

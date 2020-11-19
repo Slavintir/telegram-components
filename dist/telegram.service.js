@@ -5,11 +5,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const node_telegram_bot_api_1 = __importDefault(require("node-telegram-bot-api"));
+const telegraf_1 = require("telegraf");
 const decorators_1 = require("./helpers/decorators");
 const commandFactory_1 = require("./factories/commandFactory");
 const componentFactory_1 = require("./factories/componentFactory");
@@ -18,7 +15,7 @@ class TelegramService {
     async connect(token, storage, options) {
         var _a, _b, _c, _d;
         this.stateStorage = storage;
-        this.bot = new node_telegram_bot_api_1.default(token, { polling: true });
+        this.bot = new telegraf_1.Telegraf(token);
         this.factories = {
             command: ((_a = options === null || options === void 0 ? void 0 : options.factories) === null || _a === void 0 ? void 0 : _a.command) ? (_b = options === null || options === void 0 ? void 0 : options.factories) === null || _b === void 0 ? void 0 : _b.command : new commandFactory_1.BaseCommandFactory(),
             component: ((_c = options === null || options === void 0 ? void 0 : options.factories) === null || _c === void 0 ? void 0 : _c.component) ? (_d = options === null || options === void 0 ? void 0 : options.factories) === null || _d === void 0 ? void 0 : _d.component : new componentFactory_1.BaseComponentFactory(),
@@ -31,24 +28,33 @@ class TelegramService {
         }
         console.info('Successfully connected to telegram');
     }
-    async sendMessage(chatId, text, options) {
-        return this.bot.sendMessage(chatId, text, options);
+    async sendMessage(chatId, text, buttons) {
+        if (!buttons) {
+            return this.bot.telegram.sendMessage(chatId, text);
+        }
+        return this.bot.telegram.sendMessage(chatId, text, { reply_markup: { inline_keyboard: buttons } });
     }
-    async updateInlineKeyboard(chatId, messageId, replyMarkup) {
-        return this.bot.editMessageReplyMarkup(replyMarkup, { message_id: messageId, chat_id: chatId });
+    async updateInlineKeyboard(chatId, messageId, buttons) {
+        return this.bot.telegram.editMessageReplyMarkup(chatId, messageId, undefined, JSON.stringify(buttons));
+    }
+    async sendPhoto(chatId, source) {
+        return this.bot.telegram.sendPhoto(chatId, { source });
+    }
+    async updatePhoto(chatId, messageId, source) {
+        const t = this.bot.telegram;
+        return t.editMessageMedia(chatId, messageId, undefined, { source });
     }
     async initTelegramEventListeners(dir) {
         const paths = await directory_1.DirectoryHelper.recursiveReadDir(dir, ['.js']);
         paths.map(path => require(path).default)
-            .forEach(({ eventName, handler }) => this.bot.on(eventName, async (query) => {
-            const answerCallbackQuery = this.bot.answerCallbackQuery.bind(this.bot);
-            await handler(query, answerCallbackQuery);
+            .forEach(({ eventName, handler }) => this.bot.on(eventName, async (ctx) => {
+            await handler(ctx);
         }));
     }
     async initTelegramCommandListeners(dir) {
         const paths = await directory_1.DirectoryHelper.recursiveReadDir(dir, ['.js']);
         paths.map(path => require(path).default)
-            .forEach(({ commandName, handler }) => this.bot.onText(new RegExp(`/${commandName}`), (msg, match) => handler(msg, match)));
+            .forEach(({ commandName, handler }) => this.bot.command(commandName, ctx => handler(ctx)));
     }
 }
 __decorate([

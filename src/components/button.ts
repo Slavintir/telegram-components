@@ -1,4 +1,4 @@
-import { InlineKeyboardButton } from 'node-telegram-bot-api';
+import { InlineKeyboardButton } from 'telegraf/typings/telegram-types';
 import { v4 as uuid } from 'uuid';
 
 import telegramService from '../telegram.service';

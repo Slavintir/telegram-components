@@ -22,11 +22,7 @@ class KeyboardComponent extends component_1.SmartComponent {
     }
     async send() {
         const { chatId } = this.state;
-        const sentMessage = await telegram_service_1.default.sendMessage(chatId, this.state.description, {
-            reply_markup: {
-                inline_keyboard: this.toInlineKeyboardButton(),
-            },
-        });
+        const sentMessage = await telegram_service_1.default.sendMessage(chatId, this.state.description, this.toInlineKeyboardButton());
         const messageId = sentMessage.message_id;
         await Promise.all(this.state.buttons.map(v => v.map(v => v.updateState(Object.assign(Object.assign({}, v.state), { messageId })))));
         await this.updateState(Object.assign(Object.assign({}, this.state), { messageId }));
@@ -38,9 +34,7 @@ class KeyboardComponent extends component_1.SmartComponent {
             throw new errors_1.UnexpectedError('You must send message before update');
         }
         await this.restoreState(this.componentId);
-        return telegram_service_1.default.updateInlineKeyboard(chatId, messageId, {
-            inline_keyboard: this.toInlineKeyboardButton(),
-        });
+        return telegram_service_1.default.updateInlineKeyboard(chatId, messageId, this.toInlineKeyboardButton());
     }
     async delete() { }
     async restore(state) {

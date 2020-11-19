@@ -1,10 +1,10 @@
-import { CallbackQuery } from 'node-telegram-bot-api';
-
+import { Context } from 'telegraf';
+import { CallbackQuery } from 'telegraf/typings/telegram-types';
 import { ButtonComponent } from '../components/button';
 
 export type CommandEndCallback = (text: string) => Promise<boolean>;
 
 export interface Command {
     readonly name: string;
-    execute(query: CallbackQuery, end: CommandEndCallback, button: ButtonComponent): any;
+    execute(ctx: Context, query: CallbackQuery, button: ButtonComponent): any;
 }
