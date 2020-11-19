@@ -26,9 +26,7 @@ class TelegramService {
         if (options === null || options === void 0 ? void 0 : options.telegramEventListenersDir) {
             await this.initTelegramEventListeners(options === null || options === void 0 ? void 0 : options.telegramEventListenersDir);
         }
-        this.bot.start(() => {
-            console.info('Successfully connected to telegram');
-        });
+        return this.bot.startPolling();
     }
     async sendMessage(chatId, text, buttons) {
         if (!buttons) {
@@ -56,7 +54,7 @@ class TelegramService {
     async initTelegramCommandListeners(dir) {
         const paths = await directory_1.DirectoryHelper.recursiveReadDir(dir, ['.js']);
         paths.map(path => require(path).default)
-            .forEach(({ commandName, handler }) => this.bot.command(`/${commandName}`, ctx => handler(ctx)));
+            .forEach(({ commandName, handler }) => this.bot.command(commandName, ctx => handler(ctx)));
     }
 }
 __decorate([

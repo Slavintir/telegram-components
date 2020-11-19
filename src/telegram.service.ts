@@ -37,9 +37,7 @@ class TelegramService {
             await this.initTelegramEventListeners(options?.telegramEventListenersDir);
         }
 
-        this.bot.start(() => {
-            console.info('Successfully connected to telegram');
-        });
+        return this.bot.startPolling();
     }
 
     async sendMessage(chatId: string | number, text: string, buttons?: InlineKeyboardButton[][]) {
@@ -75,7 +73,7 @@ class TelegramService {
     private async initTelegramCommandListeners(dir: string): Promise<void> {
         const paths = await DirectoryHelper.recursiveReadDir(dir, ['.js']);
         paths.map(path => require(path).default as TelegramCommandListener)
-            .forEach(({ commandName, handler }) => this.bot.command(`/${commandName}`, ctx => handler(ctx)));
+            .forEach(({ commandName, handler }) => this.bot.command(commandName, ctx => handler(ctx)));
     }
 }
 
