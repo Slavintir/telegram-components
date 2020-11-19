@@ -6,6 +6,7 @@ export interface ComponentState {
     componentId: string;
     chatId: number;
     messageId?: number;
+    lang: string;
 }
 
 export abstract class Component<T extends ComponentState> {
@@ -15,6 +16,10 @@ export abstract class Component<T extends ComponentState> {
 
     get componentId(): string {
         return this.state.componentId;
+    }
+
+    get lang(): string {
+        return this.state.lang;
     }
 
     abstract async restore(state: T): Promise<this>;

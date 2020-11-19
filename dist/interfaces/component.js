@@ -15,6 +15,9 @@ class Component {
     get componentId() {
         return this.state.componentId;
     }
+    get lang() {
+        return this.state.lang;
+    }
 }
 __decorate([
     decorators_1.Required

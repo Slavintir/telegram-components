@@ -11,10 +11,11 @@ const button_1 = require("./button");
 const component_1 = require("../interfaces/component");
 class KeyboardComponent extends component_1.SmartComponent {
     static async create(state) {
-        const { chatId } = state;
+        const { chatId, lang } = state;
         const keyboard = await new KeyboardComponent().setState(Object.assign(Object.assign({}, state), { buttons: [] }));
         const promisesButtons = state.buttons.map(async (listButtons) => {
-            const buttons = Promise.all(listButtons.map(b => button_1.ButtonComponent.create(Object.assign(Object.assign({}, b), { chatId, parentComponentId: keyboard.componentId }))));
+            const buttons = Promise.all(listButtons.map(b => button_1.ButtonComponent.create(Object.assign(Object.assign({}, b), { lang,
+                chatId, parentComponentId: keyboard.componentId }))));
             return buttons;
         });
         const buttons = await Promise.all(promisesButtons);

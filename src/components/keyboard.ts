@@ -21,12 +21,13 @@ export interface ButtonData {
 
 export class KeyboardComponent extends SmartComponent<KeyboardState> {
     static async create(state: Omit<KeyboardState, 'componentId' | 'buttons'> & { buttons: ButtonData[][] }): Promise<KeyboardComponent> {
-        const { chatId } = state;
+        const { chatId, lang } = state;
 
         const keyboard = await new KeyboardComponent().setState({ ...state, buttons: [] });
         const promisesButtons = state.buttons.map(async (listButtons) => {
             const buttons = Promise.all(listButtons.map(b => ButtonComponent.create({
                 ...b,
+                lang,
                 chatId,
                 parentComponentId: keyboard.componentId,
             })));
