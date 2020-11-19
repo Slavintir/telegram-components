@@ -56,10 +56,10 @@ class TelegramService {
         return this.bot.telegram.sendPhoto(chatId, { source });
     }
 
-    async updatePhoto(chatId: string | number, messageId: number, media: NodeJS.ReadableStream): Promise<boolean | MessagePhoto> {
+    async updatePhoto(chatId: string | number, messageId: number, source: NodeJS.ReadableStream): Promise<boolean | MessagePhoto> {
         const t = this.bot.telegram as any;
 
-        return t.editMessageMedia(chatId, messageId, undefined, { media, type: 'photo' });
+        return t.editMessageMedia(chatId, messageId, undefined, { media: { source }, type: 'photo' });
     }
 
     private async initTelegramEventListeners(dir: string): Promise<void> {
