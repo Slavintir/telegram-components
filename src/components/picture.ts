@@ -21,7 +21,10 @@ export class PictureComponent extends SmartComponent<PictureState> {
         const response = await fetch(url);
 
         if (response.ok) {
-            return telegramService.sendPhoto(chatId, response.body);
+            const sentMessage = await telegramService.sendPhoto(chatId, response.body);
+            await this.updateState({ ...this.state, messageId: sentMessage.message_id });
+
+            return sentMessage;
         }
 
         return null;

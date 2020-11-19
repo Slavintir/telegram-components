@@ -14,7 +14,9 @@ class PictureComponent extends component_1.SmartComponent {
         const { chatId, url } = this.state;
         const response = await node_fetch_1.default(url);
         if (response.ok) {
-            return telegram_service_1.default.sendPhoto(chatId, response.body);
+            const sentMessage = await telegram_service_1.default.sendPhoto(chatId, response.body);
+            await this.updateState(Object.assign(Object.assign({}, this.state), { messageId: sentMessage.message_id }));
+            return sentMessage;
         }
         return null;
     }
