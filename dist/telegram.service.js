@@ -56,7 +56,7 @@ class TelegramService {
     async initTelegramCommandListeners(dir) {
         const paths = await directory_1.DirectoryHelper.recursiveReadDir(dir, ['.js']);
         paths.map(path => require(path).default)
-            .forEach(({ commandName, handler }) => this.bot.command(commandName, ctx => handler(ctx)));
+            .forEach(({ commandName, handler }) => this.bot.command(`/${commandName}`, ctx => handler(ctx)));
     }
 }
 __decorate([
