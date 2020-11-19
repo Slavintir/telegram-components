@@ -1,6 +1,3 @@
-export { Context } from 'telegraf';
-export * from 'telegraf/typings/telegram-types';
-
 export * from './components';
 export * from './factories';
 
