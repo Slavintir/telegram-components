@@ -40,9 +40,9 @@ class TelegramService {
     async sendPhoto(chatId, source) {
         return this.bot.telegram.sendPhoto(chatId, { source });
     }
-    async updatePhoto(chatId, messageId, source) {
+    async updatePhoto(chatId, messageId, media) {
         const t = this.bot.telegram;
-        return t.editMessageMedia(chatId, messageId, undefined, { source });
+        return t.editMessageMedia(chatId, messageId, undefined, { media, type: 'photo' });
     }
     async initTelegramEventListeners(dir) {
         const paths = await directory_1.DirectoryHelper.recursiveReadDir(dir, ['.js']);
