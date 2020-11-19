@@ -71,7 +71,7 @@ export class PictureComponent extends SmartComponent<PictureState> {
         return this;
     }
 
-    async updateState(state: Pick<PictureState, 'messageId'>): Promise<this> {
+    async updateState(state: Pick<PictureState, 'messageId' | 'url'>): Promise<this> {
         this.state = { ...this.state, ...state };
         await telegramService.stateStorage.save(this.state.componentId, this.name, this.state);
 
