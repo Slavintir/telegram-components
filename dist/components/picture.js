@@ -5,10 +5,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PictureComponent = void 0;
 const uuid_1 = require("uuid");
+const node_fetch_1 = __importDefault(require("node-fetch"));
 const telegram_service_1 = __importDefault(require("../telegram.service"));
 const errors_1 = require("../errors");
 const component_1 = require("../interfaces/component");
-class PictureComponent extends component_1.Component {
+class PictureComponent extends component_1.SmartComponent {
+    async send() {
+        const { chatId, url } = this.state;
+        const response = await node_fetch_1.default(url);
+        if (response.ok) {
+            return telegram_service_1.default.sendPhoto(chatId, response.body);
+        }
+        return null;
+    }
+    async update() {
+        await this.restoreState(this.componentId);
+        const { chatId, messageId, url } = this.state;
+        if (!messageId) {
+            throw new errors_1.UnexpectedError('You must send message before update');
+        }
+        const response = await node_fetch_1.default(url);
+        if (response.ok) {
+            return telegram_service_1.default.updatePhoto(chatId, messageId, response.body);
+        }
+        return false;
+    }
+    async delete() {
+        throw new Error('Method not implemented.');
+    }
     static async create(state) {
         const button = new PictureComponent();
         return button.setState(state);

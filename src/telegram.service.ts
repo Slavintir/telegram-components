@@ -1,14 +1,14 @@
 import { Context, Telegraf } from 'telegraf';
-import { InlineKeyboardButton } from 'telegraf/typings/telegram-types';
+import { InlineKeyboardButton, MessagePhoto } from 'telegraf/typings/telegram-types';
 
 import { Required } from './helpers/decorators';
+import { DirectoryHelper } from './helpers/directory';
 
 import { BaseCommandFactory } from './factories/commandFactory';
 import { BaseComponentFactory } from './factories/componentFactory';
 
 import { StateStorage } from './interfaces/storage';
 import { TelegramOptions } from './interfaces/telegram';
-import { DirectoryHelper } from './helpers/directory';
 import { TelegramCommandListener, TelegramEventListener } from './interfaces/telegramListener';
 
 class TelegramService {
@@ -56,7 +56,7 @@ class TelegramService {
         return this.bot.telegram.sendPhoto(chatId, { source });
     }
 
-    async updatePhoto(chatId: string | number, messageId: number, source: NodeJS.ReadableStream) {
+    async updatePhoto(chatId: string | number, messageId: number, source: NodeJS.ReadableStream): Promise<boolean | MessagePhoto> {
         const t = this.bot.telegram as any;
 
         return t.editMessageMedia(chatId, messageId, undefined, { source });

@@ -2,6 +2,7 @@ import telegramService from '../telegram.service';
 
 import { KeyboardComponent } from '../components/keyboard';
 import { ButtonComponent } from '../components/button';
+import { PictureComponent } from '../components/picture';
 
 import { AbstractFactory, FactoryTypes } from '../interfaces/factory';
 import { Component } from '../interfaces/component';
@@ -10,6 +11,7 @@ export class BaseComponentFactory extends AbstractFactory {
     protected types: FactoryTypes = {
         [ButtonComponent.name]: ButtonComponent,
         [KeyboardComponent.name]: KeyboardComponent,
+        [PictureComponent.name]: PictureComponent,
     };
 
     constructor(types: FactoryTypes = { }) {

@@ -8,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 const telegraf_1 = require("telegraf");
 const decorators_1 = require("./helpers/decorators");
+const directory_1 = require("./helpers/directory");
 const commandFactory_1 = require("./factories/commandFactory");
 const componentFactory_1 = require("./factories/componentFactory");
-const directory_1 = require("./helpers/directory");
 class TelegramService {
     async connect(token, storage, options) {
         var _a, _b, _c, _d;

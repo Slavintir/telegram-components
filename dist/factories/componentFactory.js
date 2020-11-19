@@ -7,6 +7,7 @@ exports.BaseComponentFactory = void 0;
 const telegram_service_1 = __importDefault(require("../telegram.service"));
 const keyboard_1 = require("../components/keyboard");
 const button_1 = require("../components/button");
+const picture_1 = require("../components/picture");
 const factory_1 = require("../interfaces/factory");
 class BaseComponentFactory extends factory_1.AbstractFactory {
     constructor(types = {}) {
@@ -14,6 +15,7 @@ class BaseComponentFactory extends factory_1.AbstractFactory {
         this.types = {
             [button_1.ButtonComponent.name]: button_1.ButtonComponent,
             [keyboard_1.KeyboardComponent.name]: keyboard_1.KeyboardComponent,
+            [picture_1.PictureComponent.name]: picture_1.PictureComponent,
         };
         this.types = Object.assign(Object.assign({}, this.types), types);
     }
