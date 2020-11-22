@@ -33,7 +33,7 @@ export abstract class Component<T extends ComponentState> {
     }
 
     async setState(state: Omit<T, 'componentId'>): Promise<this> {
-        this.state = { ...this.state, ...state, componentId: uuid() };
+        this.state = { ...state, componentId: uuid() } as T;
         await telegramService.stateStorage.save(this.componentId, this.name, this.state);
 
         return this;

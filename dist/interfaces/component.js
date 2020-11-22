@@ -29,7 +29,7 @@ class Component {
         return this;
     }
     async setState(state) {
-        this.state = Object.assign(Object.assign(Object.assign({}, this.state), state), { componentId: uuid_1.v4() });
+        this.state = Object.assign(Object.assign({}, state), { componentId: uuid_1.v4() });
         await telegram_service_1.default.stateStorage.save(this.componentId, this.name, this.state);
         return this;
     }
