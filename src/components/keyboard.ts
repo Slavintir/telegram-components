@@ -1,17 +1,16 @@
-import { v4 as uuid } from 'uuid';
 import { InlineKeyboardButton, Message } from 'telegraf/typings/telegram-types';
 
 import telegramService from '../telegram.service';
 
 import { UnexpectedError } from '../errors';
 
-import { ButtonComponent } from './button';
+import { ButtonComponent, ButtonState } from './button';
 
-import { SmartComponent, ComponentState } from '../interfaces/component';
+import { SmartComponent, ComponentState, FoolishComponent } from '../interfaces/component';
 
 export interface KeyboardState extends ComponentState {
     description: string;
-    buttons: ButtonComponent[][];
+    buttons: FoolishComponent<ButtonState>[][];
 }
 
 export interface ButtonData {
@@ -83,29 +82,11 @@ export class KeyboardComponent extends SmartComponent<KeyboardState> {
         return this;
     }
 
-    async setState(state: Omit<KeyboardState, 'componentId'>): Promise<this> {
-        const componentId = uuid();
-        this.state = { ...state, componentId };
-        await telegramService.stateStorage.save(componentId, this.name, this.state);
-
-        return this;
-    }
-
     async updateState(state: Pick<KeyboardState, 'messageId' | 'buttons' | 'description'>): Promise<this> {
         await telegramService.stateStorage.save(this.componentId, this.name, { ...this.state, ...state });
         this.state = { ...this.state, ...state };
 
         return this;
-    }
-
-    async restoreState(componentId: string): Promise<this> {
-        const [name, state] = await telegramService.stateStorage.restore(componentId);
-
-        if (this.name === name) {
-            return this.restore(state as KeyboardState);
-        }
-
-        throw new UnexpectedError('State can not be restored', { componentId, expected: this.name, received: name });
     }
 
     toInlineKeyboardButton(): InlineKeyboardButton[][] {

@@ -1,4 +1,3 @@
-import { v4 as uuid } from 'uuid';
 import fetch from 'node-fetch';
 import { MessagePhoto } from 'telegraf/typings/telegram-types';
 
@@ -55,20 +54,6 @@ export class PictureComponent extends SmartComponent<PictureState> {
         const button = new PictureComponent();
 
         return button.setState(state);
-    }
-
-    async restore(state: PictureState): Promise<this> {
-        this.state = state;
-
-        return this;
-    }
-
-    async setState(state: StateArguments): Promise<this> {
-        const componentId = uuid();
-        this.state = { ...state, componentId };
-        await telegramService.stateStorage.save(componentId, this.name, this.state);
-
-        return this;
     }
 
     async updateState(state: Pick<PictureState, 'messageId' | 'url'>): Promise<this> {

@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.KeyboardComponent = void 0;
-const uuid_1 = require("uuid");
 const telegram_service_1 = __importDefault(require("../telegram.service"));
 const errors_1 = require("../errors");
 const button_1 = require("./button");
@@ -50,23 +49,10 @@ class KeyboardComponent extends component_1.SmartComponent {
         this.state = Object.assign(Object.assign(Object.assign({}, this.state), state), { buttons });
         return this;
     }
-    async setState(state) {
-        const componentId = uuid_1.v4();
-        this.state = Object.assign(Object.assign({}, state), { componentId });
-        await telegram_service_1.default.stateStorage.save(componentId, this.name, this.state);
-        return this;
-    }
     async updateState(state) {
         await telegram_service_1.default.stateStorage.save(this.componentId, this.name, Object.assign(Object.assign({}, this.state), state));
         this.state = Object.assign(Object.assign({}, this.state), state);
         return this;
-    }
-    async restoreState(componentId) {
-        const [name, state] = await telegram_service_1.default.stateStorage.restore(componentId);
-        if (this.name === name) {
-            return this.restore(state);
-        }
-        throw new errors_1.UnexpectedError('State can not be restored', { componentId, expected: this.name, received: name });
     }
     toInlineKeyboardButton() {
         return this.state.buttons.map(buttons => buttons.map(button => button.toInlineKeyboardButton()));

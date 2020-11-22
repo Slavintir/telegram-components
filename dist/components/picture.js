@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PictureComponent = void 0;
-const uuid_1 = require("uuid");
 const node_fetch_1 = __importDefault(require("node-fetch"));
 const telegram_service_1 = __importDefault(require("../telegram.service"));
 const errors_1 = require("../errors");
@@ -38,16 +37,6 @@ class PictureComponent extends component_1.SmartComponent {
     static async create(state) {
         const button = new PictureComponent();
         return button.setState(state);
-    }
-    async restore(state) {
-        this.state = state;
-        return this;
-    }
-    async setState(state) {
-        const componentId = uuid_1.v4();
-        this.state = Object.assign(Object.assign({}, state), { componentId });
-        await telegram_service_1.default.stateStorage.save(componentId, this.name, this.state);
-        return this;
     }
     async updateState(state) {
         this.state = Object.assign(Object.assign({}, this.state), state);
