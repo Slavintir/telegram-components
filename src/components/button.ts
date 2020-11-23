@@ -3,8 +3,6 @@ import { v4 as uuid } from 'uuid';
 
 import telegramService from '../telegram.service';
 
-import { UnexpectedError } from '../errors';
-
 import { VoidCommand } from '../commands/void';
 
 import { FoolishComponent, ComponentState } from '../interfaces/component';
@@ -12,6 +10,7 @@ import { FoolishComponent, ComponentState } from '../interfaces/component';
 export interface ButtonState extends ComponentState {
     text: string;
     commandName: string;
+    commandParams?: object;
     parentComponentId: string;
 }
 
