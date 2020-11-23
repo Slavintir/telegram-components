@@ -29,7 +29,7 @@ export class ButtonComponent extends FoolishComponent<ButtonState> {
 
     async setState(state: StateArguments): Promise<this> {
         const componentId = uuid();
-        this.state = { ...state, componentId, commandName: VoidCommand.name };
+        this.state = { ...state, componentId, commandName: state.commandName || VoidCommand.name };
         await telegramService.stateStorage.save(componentId, this.name, this.state);
 
         return this;

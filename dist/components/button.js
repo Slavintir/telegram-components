@@ -18,7 +18,7 @@ class ButtonComponent extends component_1.FoolishComponent {
     }
     async setState(state) {
         const componentId = uuid_1.v4();
-        this.state = Object.assign(Object.assign({}, state), { componentId, commandName: void_1.VoidCommand.name });
+        this.state = Object.assign(Object.assign({}, state), { componentId, commandName: state.commandName || void_1.VoidCommand.name });
         await telegram_service_1.default.stateStorage.save(componentId, this.name, this.state);
         return this;
     }
