@@ -82,7 +82,7 @@ export class KeyboardComponent extends SmartComponent<KeyboardState> {
         return this;
     }
 
-    async updateState(state: Pick<KeyboardState, 'messageId' | 'buttons' | 'description'>): Promise<this> {
+    async updateState(state: Partial<Pick<KeyboardState, 'messageId' | 'buttons' | 'description'>>): Promise<this> {
         await telegramService.stateStorage.save(this.componentId, this.name, { ...this.state, ...state });
         this.state = { ...this.state, ...state };
 
