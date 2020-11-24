@@ -29,12 +29,12 @@ class KeyboardComponent extends component_1.SmartComponent {
         return sentMessage;
     }
     async update() {
-        const { chatId, messageId } = this.state;
+        const { chatId, messageId, description } = this.state;
         if (!messageId) {
             throw new errors_1.UnexpectedError('You must send message before update');
         }
         await this.restoreState(this.componentId);
-        return telegram_service_1.default.updateInlineKeyboard(chatId, messageId, this.toInlineKeyboardButton());
+        return telegram_service_1.default.updateMessage(chatId, messageId, description, this.toInlineKeyboardButton());
     }
     async sendMessageByMessageId(messageId) {
         const { chatId, description } = this.state;

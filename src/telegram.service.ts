@@ -57,7 +57,7 @@ class TelegramService {
             chatId,
             messageId,
             undefined,
-            JSON.stringify({ reply_markup: { inline_keyboard: buttons } })
+            JSON.stringify({ reply_markup: { inline_keyboard: buttons } }),
         );
     }
 

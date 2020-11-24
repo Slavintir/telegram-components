@@ -52,7 +52,7 @@ export class KeyboardComponent extends SmartComponent<KeyboardState> {
     }
 
     async update(): Promise<boolean | Message> {
-        const { chatId, messageId } = this.state;
+        const { chatId, messageId, description } = this.state;
 
         if (!messageId) {
             throw new UnexpectedError('You must send message before update');
@@ -60,7 +60,7 @@ export class KeyboardComponent extends SmartComponent<KeyboardState> {
 
         await this.restoreState(this.componentId);
 
-        return telegramService.updateInlineKeyboard(chatId, messageId, this.toInlineKeyboardButton());
+        return telegramService.updateMessage(chatId, messageId, description, this.toInlineKeyboardButton());
     }
 
     async sendMessageByMessageId(messageId: number): Promise<boolean | Message> {
