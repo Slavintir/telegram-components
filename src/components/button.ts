@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 
-import { CallbackButton, Markup } from 'telegraf/typings/markup';
+import { InlineKeyboardButton, Markup } from 'telegraf/typings/markup';
 import telegramService from '../telegram.service';
 
 import { VoidCommand } from '../commands/void';
@@ -35,7 +35,7 @@ export class ButtonComponent extends FoolishComponent<ButtonState> {
         return this;
     }
 
-    toInlineKeyboardButton(): CallbackButton {
+    toInlineKeyboardButton(): InlineKeyboardButton {
         const { text, componentId } = this.state;
 
         return Markup.callbackButton(text, componentId);

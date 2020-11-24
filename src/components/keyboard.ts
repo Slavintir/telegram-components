@@ -1,6 +1,6 @@
 import { Message } from 'telegraf/typings/telegram-types';
 
-import { CallbackButton } from 'telegraf/typings/markup';
+import { InlineKeyboardButton } from 'telegraf/typings/markup';
 import telegramService from '../telegram.service';
 
 import { UnexpectedError } from '../errors';
@@ -93,7 +93,7 @@ export class KeyboardComponent extends SmartComponent<KeyboardState> {
         return this;
     }
 
-    toInlineKeyboardButton(): CallbackButton[][] {
+    toInlineKeyboardButton(): InlineKeyboardButton[][] {
         return this.state.buttons.map(buttons => buttons.map(button => button.toInlineKeyboardButton()));
     }
 }

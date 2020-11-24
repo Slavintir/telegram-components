@@ -1,7 +1,7 @@
 import { Context, Markup, Telegraf } from 'telegraf';
 import { MessagePhoto } from 'telegraf/typings/telegram-types';
 
-import { CallbackButton } from 'telegraf/typings/markup';
+import { InlineKeyboardButton } from 'telegraf/typings/markup';
 import { Required } from './helpers/decorators';
 import { DirectoryHelper } from './helpers/directory';
 
@@ -41,7 +41,7 @@ class TelegramService {
         return this.bot.startPolling();
     }
 
-    async sendMessage(chatId: string | number, text: string, buttons?: CallbackButton[][]) {
+    async sendMessage(chatId: string | number, text: string, buttons?: InlineKeyboardButton[][]) {
         if (!buttons) {
             return this.bot.telegram.sendMessage(chatId, text);
         }
@@ -49,13 +49,13 @@ class TelegramService {
         return this.bot.telegram.sendMessage(chatId, text, { reply_markup: { inline_keyboard: buttons } });
     }
 
-    async updateMessage(chatId: string | number, messageId: number, text: string, buttons: CallbackButton[][]) {
+    async updateMessage(chatId: string | number, messageId: number, text: string, buttons: InlineKeyboardButton[][]) {
         const extra = Markup.inlineKeyboard(buttons).extra();
 
         return this.bot.telegram.editMessageText(chatId, messageId, undefined, text, extra);
     }
 
-    async updateInlineKeyboard(chatId: string | number, messageId: number, buttons: CallbackButton[][]) {
+    async updateInlineKeyboard(chatId: string | number, messageId: number, buttons: InlineKeyboardButton[][]) {
         const extra = Markup.inlineKeyboard(buttons);
 
         return this.bot.telegram.editMessageReplyMarkup(
