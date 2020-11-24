@@ -1,6 +1,7 @@
 import { v4 as uuid } from 'uuid';
+import { Markup } from 'telegraf';
 
-import { InlineKeyboardButton, Markup } from 'telegraf/typings/markup';
+import { InlineKeyboardButton } from 'telegraf/typings/markup';
 import telegramService from '../telegram.service';
 
 import { VoidCommand } from '../commands/void';
