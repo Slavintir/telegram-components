@@ -41,7 +41,7 @@ export abstract class Component<T extends ComponentState> {
     }
 
     async updateState(state: Partial<Omit<T, 'componentId'>>): Promise<this> {
-        this.state = merge(this.state, state);
+        this.state = Object.assign(this.state, state);
         await telegramService.stateStorage.save(this.componentId, this.name, this.state);
 
         return this;

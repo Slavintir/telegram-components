@@ -11,7 +11,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FoolishComponent = exports.SmartComponent = exports.Component = void 0;
 const uuid_1 = require("uuid");
-const lodash_1 = require("lodash");
 const errors_1 = require("../errors");
 const telegram_service_1 = __importDefault(require("../telegram.service"));
 const decorators_1 = require("../helpers/decorators");
@@ -35,7 +34,7 @@ class Component {
         return this;
     }
     async updateState(state) {
-        this.state = lodash_1.merge(this.state, state);
+        this.state = Object.assign(this.state, state);
         await telegram_service_1.default.stateStorage.save(this.componentId, this.name, this.state);
         return this;
     }
