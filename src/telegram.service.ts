@@ -1,6 +1,7 @@
 import { Context, Markup, Telegraf } from 'telegraf';
 import { MessagePhoto } from 'telegraf/typings/telegram-types';
 
+import { CallbackButton } from 'telegraf/typings/markup';
 import { Required } from './helpers/decorators';
 import { DirectoryHelper } from './helpers/directory';
 
@@ -10,7 +11,6 @@ import { BaseComponentFactory } from './factories/componentFactory';
 import { StateStorage } from './interfaces/storage';
 import { TelegramOptions } from './interfaces/telegram';
 import { TelegramCommandListener, TelegramEventListener } from './interfaces/telegramListener';
-import { InlineKeyboardButton } from 'telegraf/typings/markup';
 
 class TelegramService {
     @Required private bot!: Telegraf<Context>;
@@ -41,7 +41,7 @@ class TelegramService {
         return this.bot.startPolling();
     }
 
-    async sendMessage(chatId: string | number, text: string, buttons?: InlineKeyboardButton[][]) {
+    async sendMessage(chatId: string | number, text: string, buttons?: CallbackButton[][]) {
         if (!buttons) {
             return this.bot.telegram.sendMessage(chatId, text);
         }
@@ -49,18 +49,20 @@ class TelegramService {
         return this.bot.telegram.sendMessage(chatId, text, { reply_markup: { inline_keyboard: buttons } });
     }
 
-    async updateMessage(chatId: string | number, messageId: number, text: string, buttons: InlineKeyboardButton[][]) {
+    async updateMessage(chatId: string | number, messageId: number, text: string, buttons: CallbackButton[][]) {
         const extra = Markup.inlineKeyboard(buttons).extra();
 
         return this.bot.telegram.editMessageText(chatId, messageId, undefined, text, extra);
     }
 
-    async updateInlineKeyboard(chatId: string | number, messageId: number, buttons: InlineKeyboardButton[][]) {
+    async updateInlineKeyboard(chatId: string | number, messageId: number, buttons: CallbackButton[][]) {
+        const extra = Markup.inlineKeyboard(buttons);
+
         return this.bot.telegram.editMessageReplyMarkup(
             chatId,
             messageId,
             undefined,
-            JSON.stringify({ reply_markup: { inline_keyboard: buttons } }),
+            JSON.stringify(extra),
         );
     }
 

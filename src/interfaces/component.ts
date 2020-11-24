@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import { merge } from 'lodash';
-import { InlineKeyboardButton } from 'telegraf/typings/telegram-types';
+import { CallbackButton, InlineKeyboardButton } from 'telegraf/typings/markup';
 
 import { UnexpectedError } from '../errors';
 import telegramService from '../telegram.service';
@@ -65,5 +65,5 @@ export abstract class SmartComponent<T extends ComponentState> extends Component
 }
 
 export abstract class FoolishComponent<T extends ComponentState> extends Component<T> {
-    abstract toInlineKeyboardButton(): InlineKeyboardButton;
+    abstract toInlineKeyboardButton(): CallbackButton;
 }
