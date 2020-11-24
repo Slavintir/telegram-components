@@ -48,6 +48,10 @@ class TelegramService {
         return this.bot.telegram.sendMessage(chatId, text, { reply_markup: { inline_keyboard: buttons } });
     }
 
+    async updateMessage(chatId: string | number, messageId: number, text: string, buttons: InlineKeyboardButton[][]) {
+        return this.bot.telegram.editMessageText(chatId, messageId, undefined, text, { reply_markup: { inline_keyboard: buttons } });
+    }
+
     async updateInlineKeyboard(chatId: string | number, messageId: number, buttons: InlineKeyboardButton[][]) {
         return this.bot.telegram.editMessageReplyMarkup(chatId, messageId, undefined, JSON.stringify(buttons));
     }

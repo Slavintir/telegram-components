@@ -63,6 +63,16 @@ export class KeyboardComponent extends SmartComponent<KeyboardState> {
         return telegramService.updateInlineKeyboard(chatId, messageId, this.toInlineKeyboardButton());
     }
 
+    async sendMessageByMessageId(messageId: number): Promise<boolean | Message> {
+        const { chatId, description } = this.state;
+
+        const sentMessage = await telegramService.updateMessage(chatId, messageId, description, this.toInlineKeyboardButton());
+        await Promise.all(this.state.buttons.map(v => v.map(v => v.updateState({ ...v.state, messageId }))));
+        await this.updateState({ ...this.state, messageId });
+
+        return sentMessage;
+    }
+
     async delete(): Promise<void> { }
 
     async restore(state: KeyboardState): Promise<this> {

@@ -14,7 +14,7 @@ class PictureComponent extends component_1.SmartComponent {
         const response = await node_fetch_1.default(url);
         if (response.ok) {
             const sentMessage = await telegram_service_1.default.sendPhoto(chatId, response.body);
-            await this.updateState(Object.assign(Object.assign({}, this.state), { messageId: sentMessage.message_id }));
+            await this.setState(Object.assign(Object.assign({}, this.state), { messageId: sentMessage.message_id }));
             return sentMessage;
         }
         return null;
@@ -28,6 +28,16 @@ class PictureComponent extends component_1.SmartComponent {
         const response = await node_fetch_1.default(url);
         if (response.ok) {
             return telegram_service_1.default.updatePhoto(chatId, messageId, response.body);
+        }
+        return false;
+    }
+    async sendMessageByMessageId(messageId) {
+        const { chatId, url } = this.state;
+        const response = await node_fetch_1.default(url);
+        if (response.ok) {
+            const sentMessage = await telegram_service_1.default.updatePhoto(chatId, messageId, response.body);
+            await this.setState(Object.assign(Object.assign({}, this.state), { messageId }));
+            return sentMessage;
         }
         return false;
     }

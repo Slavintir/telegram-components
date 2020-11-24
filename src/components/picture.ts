@@ -21,7 +21,7 @@ export class PictureComponent extends SmartComponent<PictureState> {
 
         if (response.ok) {
             const sentMessage = await telegramService.sendPhoto(chatId, response.body);
-            await this.updateState({ ...this.state, messageId: sentMessage.message_id });
+            await this.setState({ ...this.state, messageId: sentMessage.message_id });
 
             return sentMessage;
         }
@@ -41,6 +41,20 @@ export class PictureComponent extends SmartComponent<PictureState> {
 
         if (response.ok) {
             return telegramService.updatePhoto(chatId, messageId, response.body);
+        }
+
+        return false;
+    }
+
+    async sendMessageByMessageId(messageId: number): Promise<boolean | MessagePhoto> {
+        const { chatId, url } = this.state;
+        const response = await fetch(url);
+
+        if (response.ok) {
+            const sentMessage = await telegramService.updatePhoto(chatId, messageId, response.body);
+            await this.setState({ ...this.state, messageId });
+
+            return sentMessage;
         }
 
         return false;

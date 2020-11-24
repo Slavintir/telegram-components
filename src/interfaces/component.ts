@@ -60,6 +60,7 @@ export abstract class Component<T extends ComponentState> {
 export abstract class SmartComponent<T extends ComponentState> extends Component<T> {
     async abstract send(): Promise<any>;
     async abstract delete(): Promise<void>;
+    async abstract sendMessageByMessageId(messageId: number): Promise<any>;
 }
 
 export abstract class FoolishComponent<T extends ComponentState> extends Component<T> {
