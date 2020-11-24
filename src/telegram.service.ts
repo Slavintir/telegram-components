@@ -1,5 +1,5 @@
-import { Context, Telegraf } from 'telegraf';
-import { InlineKeyboardButton, MessagePhoto } from 'telegraf/typings/telegram-types';
+import { Context, Markup, Telegraf } from 'telegraf';
+import { MessagePhoto } from 'telegraf/typings/telegram-types';
 
 import { Required } from './helpers/decorators';
 import { DirectoryHelper } from './helpers/directory';
@@ -10,6 +10,7 @@ import { BaseComponentFactory } from './factories/componentFactory';
 import { StateStorage } from './interfaces/storage';
 import { TelegramOptions } from './interfaces/telegram';
 import { TelegramCommandListener, TelegramEventListener } from './interfaces/telegramListener';
+import { InlineKeyboardButton } from 'telegraf/typings/markup';
 
 class TelegramService {
     @Required private bot!: Telegraf<Context>;
@@ -49,7 +50,9 @@ class TelegramService {
     }
 
     async updateMessage(chatId: string | number, messageId: number, text: string, buttons: InlineKeyboardButton[][]) {
-        return this.bot.telegram.editMessageText(chatId, messageId, undefined, text, { reply_markup: { inline_keyboard: buttons } });
+        const extra = Markup.inlineKeyboard(buttons).extra();
+
+        return this.bot.telegram.editMessageText(chatId, messageId, undefined, text, extra);
     }
 
     async updateInlineKeyboard(chatId: string | number, messageId: number, buttons: InlineKeyboardButton[][]) {

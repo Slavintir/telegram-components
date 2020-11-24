@@ -35,7 +35,8 @@ class TelegramService {
         return this.bot.telegram.sendMessage(chatId, text, { reply_markup: { inline_keyboard: buttons } });
     }
     async updateMessage(chatId, messageId, text, buttons) {
-        return this.bot.telegram.editMessageText(chatId, messageId, undefined, text, { reply_markup: { inline_keyboard: buttons } });
+        const extra = telegraf_1.Markup.inlineKeyboard(buttons).extra();
+        return this.bot.telegram.editMessageText(chatId, messageId, undefined, text, extra);
     }
     async updateInlineKeyboard(chatId, messageId, buttons) {
         return this.bot.telegram.editMessageReplyMarkup(chatId, messageId, undefined, JSON.stringify({ reply_markup: { inline_keyboard: buttons } }));
