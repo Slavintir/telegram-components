@@ -1,4 +1,5 @@
 import { v4 as uuid } from 'uuid';
+import { merge } from 'lodash';
 import { InlineKeyboardButton } from 'telegraf/typings/telegram-types';
 
 import { UnexpectedError } from '../errors';
@@ -40,7 +41,7 @@ export abstract class Component<T extends ComponentState> {
     }
 
     async updateState(state: Partial<Omit<T, 'componentId'>>): Promise<this> {
-        this.state = { ...this.state, state };
+        this.state = merge(this.state, state);
         await telegramService.stateStorage.save(this.componentId, this.name, this.state);
 
         return this;

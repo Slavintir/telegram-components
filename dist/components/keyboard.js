@@ -56,11 +56,6 @@ class KeyboardComponent extends component_1.SmartComponent {
         this.state = Object.assign(Object.assign(Object.assign({}, this.state), state), { buttons });
         return this;
     }
-    async updateState(state) {
-        await telegram_service_1.default.stateStorage.save(this.componentId, this.name, Object.assign(Object.assign({}, this.state), state));
-        this.state = Object.assign(Object.assign({}, this.state), state);
-        return this;
-    }
     toInlineKeyboardButton() {
         return this.state.buttons.map(buttons => buttons.map(button => button.toInlineKeyboardButton()));
     }
