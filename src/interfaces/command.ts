@@ -7,5 +7,5 @@ export type CommandEndCallback = (text: string) => Promise<boolean>;
 
 export abstract class Command {
     readonly name = this.constructor.name;
-    abstract execute(ctx: Context, query: CallbackQuery, button: ButtonComponent, params: object): any;
+    abstract execute(ctx: Context, query: CallbackQuery, button: ButtonComponent, params?: object): any;
 }
