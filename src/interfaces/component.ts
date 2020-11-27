@@ -1,7 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import { InlineKeyboardButton } from 'telegraf/typings/markup';
 
-import { Message } from 'telegraf/typings/telegram-types';
 import { UnexpectedError } from '../errors';
 import telegramService from '../telegram.service';
 
@@ -60,7 +59,7 @@ export abstract class Component<T extends ComponentState> {
 
 export abstract class SmartComponent<T extends ComponentState> extends Component<T> {
     async abstract send(): Promise<any>;
-    async abstract update(): Promise<any>
+    async abstract update(): Promise<any>;
     async abstract delete(): Promise<void>;
     async abstract sendMessageByMessageId(messageId: number): Promise<any>;
 }
