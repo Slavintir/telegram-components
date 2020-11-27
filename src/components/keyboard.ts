@@ -16,7 +16,7 @@ export interface KeyboardState extends ComponentState {
 
 export interface ButtonData {
     text: string;
-    commandName: string;
+    commandName?: string;
     commandParams?: object;
 }
 
