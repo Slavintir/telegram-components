@@ -9,6 +9,7 @@ const keyboard_1 = require("../components/keyboard");
 const button_1 = require("../components/button");
 const picture_1 = require("../components/picture");
 const factory_1 = require("../interfaces/factory");
+const errors_1 = require("../errors");
 class BaseComponentFactory extends factory_1.AbstractFactory {
     constructor(types = {}) {
         super();
@@ -24,7 +25,7 @@ class BaseComponentFactory extends factory_1.AbstractFactory {
         if (Object.prototype.hasOwnProperty.call(this.types, componentName)) {
             return new this.types[componentName]().restore(state);
         }
-        return null;
+        throw new errors_1.UnexpectedError('Component state not found', { componentId });
     }
 }
 exports.BaseComponentFactory = BaseComponentFactory;
