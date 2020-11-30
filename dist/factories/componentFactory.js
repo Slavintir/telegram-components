@@ -8,8 +8,8 @@ const telegram_service_1 = __importDefault(require("../telegram.service"));
 const keyboard_1 = require("../components/keyboard");
 const button_1 = require("../components/button");
 const picture_1 = require("../components/picture");
-const factory_1 = require("../interfaces/factory");
 const errors_1 = require("../errors");
+const factory_1 = require("../interfaces/factory");
 class BaseComponentFactory extends factory_1.AbstractFactory {
     constructor(types = {}) {
         super();

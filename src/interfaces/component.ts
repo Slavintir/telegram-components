@@ -1,4 +1,4 @@
-import { v4 as uuid } from 'uuid';
+import { ObjectId } from 'bson';
 import { InlineKeyboardButton } from 'telegraf/typings/markup';
 
 import { UnexpectedError } from '../errors';
@@ -7,7 +7,7 @@ import telegramService from '../telegram.service';
 import { Required } from '../helpers/decorators';
 
 export interface ComponentState {
-    componentId: string;
+    componentId: ObjectId;
     chatId: number;
     messageId?: number;
     lang: string;
@@ -18,7 +18,7 @@ export abstract class Component<T extends ComponentState> {
 
     @Required state!: T;
 
-    get componentId(): string {
+    get componentId(): ObjectId {
         return this.state.componentId;
     }
 
@@ -33,7 +33,7 @@ export abstract class Component<T extends ComponentState> {
     }
 
     async setState(state: Omit<T, 'componentId'>): Promise<this> {
-        this.state = { ...state, componentId: uuid() } as T;
+        this.state = { ...state, componentId: new ObjectId() } as T;
         await telegramService.stateStorage.save(this.componentId, this.name, this.state);
 
         return this;
@@ -46,7 +46,7 @@ export abstract class Component<T extends ComponentState> {
         return this;
     }
 
-    async restoreState(componentId: string): Promise<this> {
+    async restoreState(componentId: ObjectId): Promise<this> {
         const [name, state] = await telegramService.stateStorage.restore(componentId);
 
         if (this.name === name) {

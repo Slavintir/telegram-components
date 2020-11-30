@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import { ObjectId } from 'bson';
 import { MessagePhoto } from 'telegraf/typings/telegram-types';
 
 import telegramService from '../telegram.service';
@@ -77,7 +78,7 @@ export class PictureComponent extends SmartComponent<PictureState> {
         return this;
     }
 
-    async restoreState(componentId: string): Promise<this> {
+    async restoreState(componentId: ObjectId): Promise<this> {
         const [name, state] = await telegramService.stateStorage.restore(componentId);
 
         if (this.name !== name) {

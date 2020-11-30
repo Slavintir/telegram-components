@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@types/lodash": "^4.14.165",
+    "bson": "^4.2.0",
     "lodash": "^4.17.20",
     "node-fetch": "^2.6.1",
     "redis": "^3.0.2",

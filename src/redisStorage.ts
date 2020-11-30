@@ -1,3 +1,4 @@
+import { ObjectId } from 'bson';
 import { ClientOpts, createClient, RedisClient } from 'redis';
 import { promisify } from 'util';
 
@@ -36,8 +37,8 @@ export class RedisStorage implements StateStorage {
         });
     }
 
-    async save(id: string, componentName: string, state: ComponentState): Promise<boolean> {
-        const response = promisify(this.connection.set).bind(this.connection)(id, JSON.stringify([componentName, state]));
+    async save(id: ObjectId, componentName: string, state: ComponentState): Promise<boolean> {
+        const response = promisify(this.connection.set).bind(this.connection)(String(id), JSON.stringify([componentName, state]));
 
         if (response) {
             return true;
@@ -46,15 +47,15 @@ export class RedisStorage implements StateStorage {
         return false;
     }
 
-    async delete(id: string): Promise<number> {
+    async delete(id: ObjectId): Promise<number> {
         return promisify(this.connection.del).bind(this.connection, id)();
     }
 
-    async restore<T extends ComponentState>(id: string): Promise<[string, T]> {
-        const stateJson = await promisify(this.connection.get).bind(this.connection)(id);
+    async restore<T extends ComponentState>(id: ObjectId): Promise<[string, T]> {
+        const stateJson = await promisify(this.connection.get).bind(this.connection)(String(id));
 
         if (stateJson === null) {
-            throw new StateNotFound(id);
+            throw new StateNotFound(String(id));
         }
 
         return JSON.parse(stateJson);

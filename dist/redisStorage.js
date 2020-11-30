@@ -32,7 +32,7 @@ class RedisStorage {
         });
     }
     async save(id, componentName, state) {
-        const response = util_1.promisify(this.connection.set).bind(this.connection)(id, JSON.stringify([componentName, state]));
+        const response = util_1.promisify(this.connection.set).bind(this.connection)(String(id), JSON.stringify([componentName, state]));
         if (response) {
             return true;
         }
@@ -42,9 +42,9 @@ class RedisStorage {
         return util_1.promisify(this.connection.del).bind(this.connection, id)();
     }
     async restore(id) {
-        const stateJson = await util_1.promisify(this.connection.get).bind(this.connection)(id);
+        const stateJson = await util_1.promisify(this.connection.get).bind(this.connection)(String(id));
         if (stateJson === null) {
-            throw new stateStorage_1.StateNotFound(id);
+            throw new stateStorage_1.StateNotFound(String(id));
         }
         return JSON.parse(stateJson);
     }

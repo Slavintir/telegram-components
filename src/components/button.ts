@@ -1,4 +1,4 @@
-import { v4 as uuid } from 'uuid';
+import { ObjectId } from 'bson';
 import { Markup } from 'telegraf';
 
 import { InlineKeyboardButton } from 'telegraf/typings/markup';
@@ -12,7 +12,7 @@ export interface ButtonState extends ComponentState {
     text: string;
     commandName: string;
     commandParams?: object;
-    parentComponentId: string;
+    parentComponentId: ObjectId;
 }
 
 type StateArguments = Omit<ButtonState, 'componentId' | 'commandName'> & { commandName?: string };
@@ -29,7 +29,7 @@ export class ButtonComponent extends FoolishComponent<ButtonState> {
     }
 
     async setState(state: StateArguments): Promise<this> {
-        const componentId = uuid();
+        const componentId = new ObjectId();
         this.state = { ...state, componentId, commandName: state.commandName || VoidCommand.name };
         await telegramService.stateStorage.save(componentId, this.name, this.state);
 
@@ -39,6 +39,6 @@ export class ButtonComponent extends FoolishComponent<ButtonState> {
     toInlineKeyboardButton(): InlineKeyboardButton {
         const { text, componentId } = this.state;
 
-        return Markup.callbackButton(text, componentId);
+        return Markup.callbackButton(text, String(componentId));
     }
 }
