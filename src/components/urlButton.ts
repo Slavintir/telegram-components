@@ -6,15 +6,15 @@ import telegramService from '../telegram.service';
 
 import { FoolishComponent, ComponentState } from '../interfaces/component';
 
-export interface ButtonState extends ComponentState {
+export interface UrlButtonState extends ComponentState {
     text: string;
     url: string;
     parentComponentId: ObjectId;
 }
 
-type StateArguments = Omit<ButtonState, 'componentId'>;
+type StateArguments = Omit<UrlButtonState, 'componentId'>;
 
-export class UrlButtonComponent extends FoolishComponent<ButtonState> {
+export class UrlButtonComponent extends FoolishComponent<UrlButtonState> {
     static async create(state: StateArguments): Promise<UrlButtonComponent> {
         const button = new UrlButtonComponent();
 
