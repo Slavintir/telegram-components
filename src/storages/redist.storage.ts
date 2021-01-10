@@ -2,12 +2,12 @@ import { ObjectId } from 'bson';
 import { ClientOpts, createClient, RedisClient } from 'redis';
 import { promisify } from 'util';
 
-import { StateNotFound } from './errors/stateStorage';
+import { StateNotFound } from '../errors/stateStorage';
 
-import { Required } from './helpers/decorators';
+import { Required } from '../helpers/decorators';
 
-import { ComponentState } from './interfaces/component';
-import { StateStorage } from './interfaces/storage';
+import { ComponentState } from '../interfaces/component';
+import { StateStorage } from '../interfaces/storage';
 
 export class RedisStorage implements StateStorage {
     @Required connection!: RedisClient

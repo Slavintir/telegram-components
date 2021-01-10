@@ -8,6 +8,6 @@ export * from './interfaces/storage';
 export * from './interfaces/telegram';
 export * from './interfaces/telegramListener';
 
-export { RedisStorage } from './redisStorage';
+export { RedisStorage } from './storages/redist.storage';
 
 export { default as telegram } from './telegram.service';
