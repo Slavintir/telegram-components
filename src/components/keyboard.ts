@@ -75,7 +75,9 @@ export class KeyboardComponent extends SmartComponent<KeyboardState> {
         return sentMessage;
     }
 
-    async delete(): Promise<void> { }
+    async delete(): Promise<void> {
+        throw new Error('Method not implemented.');
+    }
 
     async restore(state: KeyboardState): Promise<this> {
         const promisesButtons = state.buttons.map(async (listButtons) => {
