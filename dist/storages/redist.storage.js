@@ -9,8 +9,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RedisStorage = void 0;
 const redis_1 = require("redis");
 const util_1 = require("util");
-const stateStorage_1 = require("./errors/stateStorage");
-const decorators_1 = require("./helpers/decorators");
+const stateStorage_1 = require("../errors/stateStorage");
+const decorators_1 = require("../helpers/decorators");
 class RedisStorage {
     constructor(connection) {
         connection.on('connect', () => {
@@ -53,4 +53,4 @@ __decorate([
     decorators_1.Required
 ], RedisStorage.prototype, "connection", void 0);
 exports.RedisStorage = RedisStorage;
-//# sourceMappingURL=redisStorage.js.map
+//# sourceMappingURL=redist.storage.js.map

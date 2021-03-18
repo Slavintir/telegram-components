@@ -43,7 +43,9 @@ class KeyboardComponent extends component_1.SmartComponent {
         await this.updateState(Object.assign(Object.assign({}, this.state), { messageId }));
         return sentMessage;
     }
-    async delete() { }
+    async delete() {
+        throw new Error('Method not implemented.');
+    }
     async restore(state) {
         const promisesButtons = state.buttons.map(async (listButtons) => {
             const buttons = Promise.all(listButtons.map(button => {

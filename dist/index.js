@@ -22,8 +22,8 @@ __exportStar(require("./interfaces/factory"), exports);
 __exportStar(require("./interfaces/storage"), exports);
 __exportStar(require("./interfaces/telegram"), exports);
 __exportStar(require("./interfaces/telegramListener"), exports);
-var redisStorage_1 = require("./redisStorage");
-Object.defineProperty(exports, "RedisStorage", { enumerable: true, get: function () { return redisStorage_1.RedisStorage; } });
+var redist_storage_1 = require("./storages/redist.storage");
+Object.defineProperty(exports, "RedisStorage", { enumerable: true, get: function () { return redist_storage_1.RedisStorage; } });
 var telegram_service_1 = require("./telegram.service");
 Object.defineProperty(exports, "telegram", { enumerable: true, get: function () { return __importDefault(telegram_service_1).default; } });
 //# sourceMappingURL=index.js.map
